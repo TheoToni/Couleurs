@@ -7,15 +7,17 @@ import {
   faArrowsAlt,
   faTh,
   faAdjust,
+  faLockOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ColorfulDiv: React.FC = ({}) => {
   const [color, setColor] = useState(getRandomColor());
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
+      if (event.code === "Space" && !locked) {
         setColor(getRandomColor());
       }
     };
@@ -25,7 +27,7 @@ const ColorfulDiv: React.FC = ({}) => {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, []);
+  }, [locked]);
 
   function getRandomColor(): string {
     const letters = "0123456789ABCDEF";
@@ -37,15 +39,20 @@ const ColorfulDiv: React.FC = ({}) => {
   }
 
   const handleColorClick = () => {
-    navigator.clipboard.writeText(color);
+    if (!locked) {
+      navigator.clipboard.writeText(color);
+    }
+  };
+
+  const toggleLock = () => {
+    setLocked(!locked);
   };
 
   return (
     <div
-      className="gap-2 "
+      className={`gap-2 ${locked ? "locked" : ""}`}
       style={{
         backgroundColor: color,
-
         flex: 1,
         display: "flex",
         alignItems: "center",
@@ -53,6 +60,26 @@ const ColorfulDiv: React.FC = ({}) => {
         flexDirection: "column",
       }}
     >
+      <div
+        className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md"
+        onClick={toggleLock}
+      >
+        <FontAwesomeIcon
+          icon={locked ? faLock : faLockOpen}
+          className="text-[#222]"
+        />
+        <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
+          Toggle lock
+        </span>
+      </div>
+
+      <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
+        <FontAwesomeIcon icon={faCopy} className="text-[#222]" />
+        <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
+          Copy hex
+        </span>
+      </div>
+
       <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
         <FontAwesomeIcon icon={faTimes} className="text-[#222]" />
         <span className="hidden w-max group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
@@ -66,18 +93,7 @@ const ColorfulDiv: React.FC = ({}) => {
           Save color
         </span>
       </div>
-      <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
-        <FontAwesomeIcon icon={faLock} className="text-[#222]" />
-        <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
-          Toggle lock
-        </span>
-      </div>
-      <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
-        <FontAwesomeIcon icon={faCopy} className="text-[#222]" />
-        <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
-          Copy hex
-        </span>
-      </div>
+
       <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
         <FontAwesomeIcon icon={faArrowsAlt} className="text-[#222]" />
         <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
@@ -96,10 +112,6 @@ const ColorfulDiv: React.FC = ({}) => {
           Check contrast
         </span>
       </div>
-      <i className="icon3" />
-      <i className="icon4" />
-      <i className="icon5" />
-      <i className="icon6" />
       <p
         className="text-white text-2xl font-semibold cursor-pointer hover:bg-black-light inline-block p-2 pl-4 pr-4 rounded-md "
         onClick={handleColorClick}
