@@ -2,12 +2,14 @@ import React from "react";
 import ColorfulDiv from "../src/components/ColorfulDiv";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Navigation from "./components/Navigation";
 
 const App: React.FC = () => {
   const divHeight = window.innerHeight / 2;
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
+      <Navigation></Navigation>
       <div className="toolbox bg-white p-5 flex items-center justify-between">
         <div className="leftToolbox">
           <p className="text-md text-[#7d7c83]">
