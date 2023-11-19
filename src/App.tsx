@@ -25,12 +25,12 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex">
-        <ColorfulDiv height={divHeight} />
-        <ColorfulDiv height={divHeight} />
-        <ColorfulDiv height={divHeight} />
-        <ColorfulDiv height={divHeight} />
-        <ColorfulDiv height={divHeight} />
+      <div className="flex colordivwrapper flex-1">
+        <ColorfulDiv />
+        <ColorfulDiv />
+        <ColorfulDiv />
+        <ColorfulDiv />
+        <ColorfulDiv />
       </div>
     </div>
   );

@@ -10,11 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface ColorfulDivProps {
-  height: number;
-}
-
-const ColorfulDiv: React.FC<ColorfulDivProps> = ({ height }) => {
+const ColorfulDiv: React.FC = ({}) => {
   const [color, setColor] = useState(getRandomColor());
 
   useEffect(() => {
@@ -46,12 +42,11 @@ const ColorfulDiv: React.FC<ColorfulDivProps> = ({ height }) => {
 
   return (
     <div
-      className="gap-2"
+      className="gap-2 "
       style={{
         backgroundColor: color,
-        height: `${height}px`,
-        flex: 1,
 
+        flex: 1,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
