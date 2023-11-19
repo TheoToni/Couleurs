@@ -1,7 +1,7 @@
 function Navigation() {
   return (
     <div className="wrapper flex justify-between pl-10 pr-10 bg-white border-b border-[#ececec] shadow-sm text-base text-black">
-      <div className="left flex items-center p-3 gap-10 ">
+      <div className="left flex items-center p-2 gap-10 ">
         <a href="/">
           <img
             className="cursor-pointer w-10"
