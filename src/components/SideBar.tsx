@@ -4,11 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // Use the props interface in the functional component
 function SideBar() {
   return (
-    <div
-      className={`sidebar flex flex-col w-64 bg-white border-t p-3 border-[#ececec] 
-      }`}
-    >
-      <div className="sidebarnav flex items-center justify-between">
+    <div className="sidebar flex flex-col w-64 bg-white border-t p-3 border-[#ececec]">
+      <div className="sidebar-nav flex items-center justify-between">
         <p className="text-black font-bold">Library</p>
         <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
           <FontAwesomeIcon icon={faPlus} className="text-[#222]" />
@@ -16,6 +13,11 @@ function SideBar() {
             Add
           </span>
         </div>
+      </div>
+      <div className="sidebar-content mt-5">
+        <p className="text-md text-[#7d7c83]">
+          Your saved color schemes will appear here
+        </p>
       </div>
     </div>
   );

@@ -9,7 +9,9 @@ function Navigation() {
             alt="logo"
           />
         </a>
+        <h1 className="font-bold text-xl">COULEURS</h1>
       </div>
+
       <div className="right flex items-center gap-10 ">
         <p className="cursor-pointer border-r border-[#ececec] pr-10 ">Tools</p>
         <p className="cursor-pointer">Sign in</p>
