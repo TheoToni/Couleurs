@@ -9,11 +9,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navigation from "./components/Navigation";
 import SideBar from "./components/SideBar";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
 
 const App: React.FC = () => {
   // Add state to toggle the sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [amountOfColors, setamountOfColors] = useState<number>(5);
 
   // Function to toggle the sidebar state
   const toggleSidebar = () => {
@@ -60,12 +61,26 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="flex colordivwrapper flex-1">
-        {/* Pass isSidebarOpen as a prop to the Sidebar component */}
-        <ColorfulDiv />
-        <ColorfulDiv />
-        <ColorfulDiv />
-        <ColorfulDiv />
-        <ColorfulDiv />
+        <ColorfulDiv
+          amountOfColors={amountOfColors}
+          setAmountOfColors={setamountOfColors}
+        />
+        <ColorfulDiv
+          amountOfColors={amountOfColors}
+          setAmountOfColors={setamountOfColors}
+        />
+        <ColorfulDiv
+          amountOfColors={amountOfColors}
+          setAmountOfColors={setamountOfColors}
+        />
+        <ColorfulDiv
+          amountOfColors={amountOfColors}
+          setAmountOfColors={setamountOfColors}
+        />
+        <ColorfulDiv
+          amountOfColors={amountOfColors}
+          setAmountOfColors={setamountOfColors}
+        />
         {isSidebarOpen && <SideBar />}
       </div>
     </div>

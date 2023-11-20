@@ -11,9 +11,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ColorfulDiv: React.FC = ({}) => {
+type ColorfulDivProps = {
+  amountOfColors: number;
+  setAmountOfColors: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const ColorfulDiv: React.FC<ColorfulDivProps> = ({
+  amountOfColors,
+  setAmountOfColors,
+}) => {
   const [color, setColor] = useState(getRandomColor());
   const [locked, setLocked] = useState(false);
+  const [removed, setRemoved] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -48,6 +57,17 @@ const ColorfulDiv: React.FC = ({}) => {
     setLocked(!locked);
   };
 
+  const removeComponent = () => {
+    if (amountOfColors > 2) {
+      setAmountOfColors(amountOfColors - 1);
+      setRemoved(true);
+    }
+  };
+
+  if (removed) {
+    return null; // Render nothing if the component is removed
+  }
+
   return (
     <div
       className={`gap-2 ${locked ? "locked" : ""}`}
@@ -74,14 +94,22 @@ const ColorfulDiv: React.FC = ({}) => {
       </div>
 
       <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
-        <FontAwesomeIcon icon={faCopy} className="text-[#222]" />
+        <FontAwesomeIcon
+          onClick={handleColorClick}
+          icon={faCopy}
+          className="text-[#222]"
+        />
         <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
           Copy hex
         </span>
       </div>
 
       <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
-        <FontAwesomeIcon icon={faTimes} className="text-[#222]" />
+        <FontAwesomeIcon
+          onClick={removeComponent}
+          icon={faTimes}
+          className="text-[#222]"
+        />
         <span className="hidden w-max group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
           Remove color
         </span>
