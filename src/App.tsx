@@ -27,7 +27,7 @@ const App: React.FC = () => {
       <Navigation />
       <div className="toolbox bg-white p-2 pl-10 pr-10 flex items-center justify-end">
         <div className="leftToolbox mr-auto">
-          <p className="text-md text-[#7d7c83]">
+          <p className="hidden md:flex text-md text-[#7d7c83]">
             Press the space bar to generate color palettes!
           </p>
         </div>
