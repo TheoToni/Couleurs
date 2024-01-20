@@ -1,5 +1,3 @@
-import React from "react";
-
 function Navigation() {
   return (
     <div className="wrapper flex justify-between pl-10 pr-10 bg-white border-b border-[#ececec] shadow-sm text-base text-black">
