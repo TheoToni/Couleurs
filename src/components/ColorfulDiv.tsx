@@ -14,15 +14,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type ColorfulDivProps = {
   amountOfColors: number;
   setAmountOfColors: React.Dispatch<React.SetStateAction<number>>;
+  savedColors: string[];
+  setsavedColors: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const ColorfulDiv: React.FC<ColorfulDivProps> = ({
   amountOfColors,
   setAmountOfColors,
+  savedColors,
+  setsavedColors,
 }) => {
   const [color, setColor] = useState(getRandomColor());
   const [locked, setLocked] = useState(false);
   const [removed, setRemoved] = useState(false);
+  const [showHexPopup, setShowHexPopup] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -50,6 +55,26 @@ const ColorfulDiv: React.FC<ColorfulDivProps> = ({
   const handleColorClick = () => {
     if (!locked) {
       navigator.clipboard.writeText(color);
+      setShowHexPopup(true);
+      setTimeout(() => {
+        setShowHexPopup(false);
+      }, 2000);
+    }
+  };
+
+  const handleSaveColor = () => {
+    // Check if the color already exists in the state
+    if (!savedColors.includes(color)) {
+      // If it doesn't exist, add it to the state
+      setsavedColors((prevColors) => [...prevColors, color]);
+
+      // Show the saved color hex popup
+      setShowHexPopup(true);
+
+      // Hide the popup after 2 seconds (adjust as needed)
+      setTimeout(() => {
+        setShowHexPopup(false);
+      }, 2000);
     }
   };
 
@@ -91,6 +116,13 @@ const ColorfulDiv: React.FC<ColorfulDivProps> = ({
         <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
           Toggle lock
         </span>
+        <span
+          className={`w-max ${
+            showHexPopup ? "block" : "hidden"
+          } fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 py-1 text-xs text-white bg-black rounded-md`}
+        >
+          Copied: {color}
+        </span>
       </div>
 
       <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
@@ -116,7 +148,11 @@ const ColorfulDiv: React.FC<ColorfulDivProps> = ({
       </div>
 
       <div className="group relative hover:bg-black-light inline-block p-2 pl-4 pr-4 cursor-pointer rounded-md">
-        <FontAwesomeIcon icon={faHeart} className="text-[#222]" />
+        <FontAwesomeIcon
+          icon={faHeart}
+          onClick={handleSaveColor}
+          className="text-[#222]"
+        />
         <span className=" w-max hidden group-hover:block absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs text-white bg-black rounded-md">
           Save color
         </span>

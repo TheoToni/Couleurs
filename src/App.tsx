@@ -15,6 +15,7 @@ const App: React.FC = () => {
   // Add state to toggle the sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [amountOfColors, setamountOfColors] = useState<number>(5);
+  const [savedColors, setsavedColors] = useState<string[]>([]);
 
   // Function to toggle the sidebar state
   const toggleSidebar = () => {
@@ -22,7 +23,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen overflow-auto">
       <Navigation />
       <div className="toolbox bg-white p-2 pl-10 pr-10 flex items-center justify-end">
         <div className="leftToolbox mr-auto">
@@ -60,28 +61,38 @@ const App: React.FC = () => {
           </span>
         </div>
       </div>
-      <div className="flex colordivwrapper flex-1">
+      <div className="flex md:flex-row flex-col colordivwrapper flex-1  ">
         <ColorfulDiv
           amountOfColors={amountOfColors}
           setAmountOfColors={setamountOfColors}
+          setsavedColors={setsavedColors}
+          savedColors={savedColors}
         />
         <ColorfulDiv
           amountOfColors={amountOfColors}
           setAmountOfColors={setamountOfColors}
+          setsavedColors={setsavedColors}
+          savedColors={savedColors}
         />
         <ColorfulDiv
           amountOfColors={amountOfColors}
           setAmountOfColors={setamountOfColors}
+          setsavedColors={setsavedColors}
+          savedColors={savedColors}
         />
         <ColorfulDiv
           amountOfColors={amountOfColors}
           setAmountOfColors={setamountOfColors}
+          setsavedColors={setsavedColors}
+          savedColors={savedColors}
         />
         <ColorfulDiv
           amountOfColors={amountOfColors}
           setAmountOfColors={setamountOfColors}
+          setsavedColors={setsavedColors}
+          savedColors={savedColors}
         />
-        {isSidebarOpen && <SideBar />}
+        {isSidebarOpen && <SideBar savedColors={savedColors} />}
       </div>
     </div>
   );
